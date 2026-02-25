@@ -6,16 +6,20 @@ import login_logo from "../../assets/logos/login-logo.svg";
 function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const API_BASE_URL =
+    import.meta.env.VITE_API_BASE_URL || "http://localhost:8000";
 
   const handleLogin = async (e) => {
     e.preventDefault();
 
     try {
-      const response = await axios.post("http://localhost:8000/login", {
-        username: username,
-        password: password,
+      const formData = new URLSearchParams();
+      formData.append("username", username);
+      formData.append("password", password);
+
+      const response = await axios.post(`${API_BASE_URL}/login`, formData, {
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
       });
-      ``;
 
       console.log(response.data);
 
@@ -28,12 +32,14 @@ function Login() {
 
   const handleLdapLogin = async () => {
     try {
-      const response = await axios.post("http://localhost:8000/login-ldap", {
-        username,
+      const response = await axios.post(`${API_BASE_URL}/login/ldap`, {
+        email: username,
         password,
       });
 
-      localStorage.setItem("token", response.data.access_token);
+      if (response.data?.access_token) {
+        localStorage.setItem("token", response.data.access_token);
+      }
       alert("Dang nhap LDAP thanh cong!");
     } catch (error) {
       alert("LDAP login that bai!");
