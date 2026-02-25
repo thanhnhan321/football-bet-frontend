@@ -3,7 +3,7 @@ import axios from "axios";
 import "./Login.css";
 import login_logo from "../../assets/logos/login-logo.svg";
 
-function Login() {
+function Login({ onLoginSuccess }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const API_BASE_URL =
@@ -25,6 +25,7 @@ function Login() {
 
       localStorage.setItem("token", response.data.access_token);
       alert("Dang nhap thanh cong!");
+      onLoginSuccess?.();
     } catch (error) {
       alert("Sai mat khau hoac tai khoan!");
     }
@@ -39,6 +40,7 @@ function Login() {
 
       if (response.data?.access_token) {
         localStorage.setItem("token", response.data.access_token);
+        onLoginSuccess?.();
       }
       alert("Dang nhap LDAP thanh cong!");
     } catch (error) {
