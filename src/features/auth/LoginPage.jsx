@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { clearAuthError, login } from "../../store/authSlice";
-import "./Login.css";
+import { clearAuthError, login } from "./authSlice";
+import "./LoginPage.css";
 import loginLogo from "../../assets/logos/login-logo.svg";
 
-function Login() {
+function LoginPage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
@@ -79,4 +79,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default LoginPage;

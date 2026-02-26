@@ -1,7 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
+import httpClient from "../../services/httpClient";
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:8000";
 const TOKEN_KEY = "access_token";
 const ROLE_KEY = "role_name";
 const USERNAME_KEY = "username";
@@ -22,7 +21,7 @@ export const login = createAsyncThunk(
       formData.append("username", username);
       formData.append("password", password);
 
-      const { data } = await axios.post(`${API_BASE_URL}/login`, formData, {
+      const { data } = await httpClient.post("/login", formData, {
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
       });
 

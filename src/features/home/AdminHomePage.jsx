@@ -1,8 +1,8 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { logout } from "../../store/authSlice";
+import { logout } from "../auth/authSlice";
 
-function MemberHome() {
+function AdminHomePage() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const username = useSelector((state) => state.auth.username);
@@ -14,8 +14,8 @@ function MemberHome() {
 
   return (
     <main className="home-shell">
-      <h1>Member Dashboard</h1>
-      <p>Xin chao {username || "member"}. Chuc ban du doan chinh xac.</p>
+      <h1>Admin Dashboard</h1>
+      <p>Xin chao {username || "admin"}. Ban dang dang nhap voi quyen admin.</p>
       <button className="btn-primary" type="button" onClick={handleLogout}>
         Dang xuat
       </button>
@@ -23,4 +23,4 @@ function MemberHome() {
   );
 }
 
-export default MemberHome;
+export default AdminHomePage;
