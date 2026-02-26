@@ -1,92 +1,81 @@
-import { useState } from "react";
-import axios from "axios";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { clearAuthError, login } from "../../store/authSlice";
 import "./Login.css";
-import login_logo from "../../assets/logos/login-logo.svg";
+import loginLogo from "../../assets/logos/login-logo.svg";
 
-function Login({ onLoginSuccess }) {
+function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const API_BASE_URL =
-    import.meta.env.VITE_API_BASE_URL || "http://localhost:8000";
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { token, role, loading, error } = useSelector((state) => state.auth);
 
-  const handleLogin = async (e) => {
-    e.preventDefault();
-
-    try {
-      const formData = new URLSearchParams();
-      formData.append("username", username);
-      formData.append("password", password);
-
-      const response = await axios.post(`${API_BASE_URL}/login`, formData, {
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      });
-
-      console.log(response.data);
-
-      localStorage.setItem("token", response.data.access_token);
-      alert("Dang nhap thanh cong!");
-      onLoginSuccess?.(response.data.role_name);
-    } catch (error) {
-      alert("Sai mat khau hoac tai khoan!");
+  useEffect(() => {
+    if (!token) {
+      return;
     }
+
+    if (role === "admin") {
+      navigate("/home/admin", { replace: true });
+      return;
+    }
+
+    navigate("/home/member", { replace: true });
+  }, [navigate, role, token]);
+
+  useEffect(() => {
+    return () => {
+      dispatch(clearAuthError());
+    };
+  }, [dispatch]);
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    await dispatch(login({ username: username.trim(), password }));
   };
 
-  const handleLdapLogin = async () => {
-    try {
-      const response = await axios.post(`${API_BASE_URL}/login/ldap`, {
-        email: username,
-        password,
-      });
-
-      if (response.data?.access_token) {
-        localStorage.setItem("token", response.data.access_token);
-        onLoginSuccess?.(response.data.role_name);
-      }
-      alert("Dang nhap LDAP thanh cong!");
-    } catch (error) {
-      alert("LDAP login that bai!");
-    }
-  };
   return (
-    <>
-      <div className="login-wrapper">
-        <div className="login-box">
-          <img src={login_logo} alt="Logo" className="login-logo" />
-          <h1 className="login-title">Trổ tài dự đoán</h1>
-          <h2>Đăng nhập</h2>
-          <form onSubmit={handleLogin}>
-            <input
-              type="text"
-              placeholder="Tài khoản"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              required
-            />
-            <br />
-            <br />
-            <input
-              type="password"
-              placeholder="Mật khẩu"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-            <br />
-            <br />
-            <button className="button-login" type="submit">
-              Đăng nhập
-            </button>
-            <button
-              className="button-ldap"
-              type="button"
-              onClick={handleLdapLogin}
-            >
-              Đăng nhập bằng tài khoản Mobifone
-            </button>
-          </form>
-        </div>
-      </div>
-    </>
+    <main className="login-page">
+      <section className="login-card" aria-labelledby="login-title">
+        <img src={loginLogo} alt="Football Bet" className="login-logo" />
+        <p className="login-eyebrow">Football Bet Platform</p>
+        <h1 id="login-title" className="login-title">
+          Dang nhap he thong
+        </h1>
+
+        <form className="login-form" onSubmit={handleSubmit}>
+          <label htmlFor="username">Tai khoan</label>
+          <input
+            id="username"
+            type="text"
+            autoComplete="username"
+            placeholder="Nhap tai khoan"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            required
+          />
+
+          <label htmlFor="password">Mat khau</label>
+          <input
+            id="password"
+            type="password"
+            autoComplete="current-password"
+            placeholder="Nhap mat khau"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+
+          {error ? <p className="login-error">{error}</p> : null}
+
+          <button className="btn-primary" type="submit" disabled={loading}>
+            {loading ? "Dang xu ly..." : "Dang nhap"}
+          </button>
+        </form>
+      </section>
+    </main>
   );
 }
 
