@@ -25,7 +25,7 @@ function Login({ onLoginSuccess }) {
 
       localStorage.setItem("token", response.data.access_token);
       alert("Dang nhap thanh cong!");
-      onLoginSuccess?.();
+      onLoginSuccess?.(response.data.role_name);
     } catch (error) {
       alert("Sai mat khau hoac tai khoan!");
     }
@@ -40,7 +40,7 @@ function Login({ onLoginSuccess }) {
 
       if (response.data?.access_token) {
         localStorage.setItem("token", response.data.access_token);
-        onLoginSuccess?.();
+        onLoginSuccess?.(response.data.role_name);
       }
       alert("Dang nhap LDAP thanh cong!");
     } catch (error) {
