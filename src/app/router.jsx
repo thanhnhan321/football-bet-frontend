@@ -5,6 +5,7 @@ import AdminHomePage from "../features/home/AdminHomePage";
 import MemberHomePage from "../features/home/MemberHomePage";
 import ProtectedRoute from "../shared/components/ProtectedRoute";
 
+//Redirect by role
 function HomeRedirect() {
   const { role } = useSelector((state) => state.auth);
 
@@ -18,9 +19,10 @@ function HomeRedirect() {
 function AppRouter() {
   return (
     <Routes>
+      {/* Redirect pages */}
       <Route path="/" element={<Navigate to="/home" replace />} />
       <Route path="/login" element={<LoginPage />} />
-
+      {/* Need to login to access Homedirect function */}
       <Route
         path="/home"
         element={
@@ -29,7 +31,6 @@ function AppRouter() {
           </ProtectedRoute>
         }
       />
-
       <Route
         path="/home/admin"
         element={
@@ -38,7 +39,6 @@ function AppRouter() {
           </ProtectedRoute>
         }
       />
-
       <Route
         path="/home/member"
         element={
@@ -47,7 +47,6 @@ function AppRouter() {
           </ProtectedRoute>
         }
       />
-
       <Route path="*" element={<Navigate to="/home" replace />} />
     </Routes>
   );

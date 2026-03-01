@@ -6,10 +6,14 @@ import AppRouter from "./app/router";
 import { store } from "./app/store";
 import "./shared/styles/global.css";
 
+//Create a React root container get tag HTML with id="root" in index.html
 createRoot(document.getElementById("root")).render(
   <StrictMode>
+    {/* Store of redux */}
     <Provider store={store}>
+      {/* This is component of react-router-dom.  */}
       <BrowserRouter>
+        {/* Code of app */}
         <AppRouter />
       </BrowserRouter>
     </Provider>

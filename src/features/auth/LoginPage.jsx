@@ -12,6 +12,7 @@ function LoginPage() {
   const navigate = useNavigate();
   const { token, role, loading, error } = useSelector((state) => state.auth);
 
+  //useEffect redirect
   useEffect(() => {
     if (!token) {
       return;
