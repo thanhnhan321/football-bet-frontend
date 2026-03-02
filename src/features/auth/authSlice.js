@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import httpClient from "../../services/httpClient";
+import { loginRequest } from "./authApi";
 
 const TOKEN_KEY = "access_token";
 const ROLE_KEY = "role_name";
@@ -24,15 +24,7 @@ export const login = createAsyncThunk(
   "auth/login",
   async ({ username, password }, { rejectWithValue }) => {
     try {
-      //form data: username=<>&password=<>
-      const formData = new URLSearchParams();
-      formData.append("username", username);
-      formData.append("password", password);
-
-      const { data } = await httpClient.post("/login", formData, {
-        // Traditional HTML form
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      });
+      const data = await loginRequest({ username, password });
 
       // where?: action.payload, Redux store, component call this function (dispatch this func)
       return {
