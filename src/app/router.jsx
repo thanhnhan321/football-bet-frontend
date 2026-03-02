@@ -4,6 +4,11 @@ import LoginPage from "../features/auth/LoginPage";
 import AdminHomePage from "../features/home/AdminHomePage";
 import MemberHomePage from "../features/home/MemberHomePage";
 import ProtectedRoute from "../shared/components/ProtectedRoute";
+import AdminLayout from "../features/admin/Adminlayout/AdminLayout";
+import UserManagement from "../features/admin/UserManagement/UserManagement";
+import MatchManagement from "../features/admin/MatchManagement/MatchManagement";
+import MiniGameManagement from "../features/admin/MatchManagement/MatchManagement";
+import StatisticsPage from "../features/admin/StatisticsPage/StatisticsPage";
 
 //Redirect by role
 function HomeRedirect() {
@@ -35,10 +40,16 @@ function AppRouter() {
         path="/home/admin"
         element={
           <ProtectedRoute allowedRoles={["admin"]}>
-            <AdminHomePage />
+            <AdminLayout />
           </ProtectedRoute>
         }
-      />
+      >
+        <Route index element={<Navigate to="users" replace />} />
+        <Route path="users" element={<UserManagement />} />
+        <Route path="matches" element={<MatchManagement />} />
+        <Route path="minigames" element={<MiniGameManagement />} />
+        <Route path="statistics" element={<StatisticsPage />} />
+      </Route>
       <Route
         path="/home/member"
         element={
