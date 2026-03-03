@@ -7,6 +7,7 @@ import {
   updateScore,
 } from "../../features/match/matchSlice";
 import { selectMatches, selectMatchesLoading } from "../../features/match/matchSelectors";
+import { fetchSeasonsRequest } from "../../features/season/seasonApi";
 import { TEAM_OPTIONS } from "../../utils/teams";
 import MatchForm from "./components/MatchForm";
 import MatchTable from "./components/MatchTable";
@@ -21,8 +22,10 @@ function MatchesPage() {
   const dispatch = useDispatch();
   const matches = useSelector(selectMatches);
   const loading = useSelector(selectMatchesLoading);
+  const [seasons, setSeasons] = useState([]);
 
   const [form, setForm] = useState({
+    season_id: "",
     teamA_name: "",
     teamB_name: "",
     match_start: "",
@@ -35,12 +38,26 @@ function MatchesPage() {
     dispatch(fetchMatches());
   }, [dispatch]);
 
+  useEffect(() => {
+    const loadSeasons = async () => {
+      try {
+        const data = await fetchSeasonsRequest();
+        setSeasons(Array.isArray(data) ? data : []);
+      } catch {
+        setSeasons([]);
+      }
+    };
+
+    loadSeasons();
+  }, []);
+
   const handleFormChange = (field, value) => {
     setForm((prev) => ({ ...prev, [field]: value }));
   };
 
   const handleCreate = () => {
     if (
+      !form.season_id ||
       !form.teamA_name ||
       !form.teamB_name ||
       !form.match_start ||
@@ -63,6 +80,7 @@ function MatchesPage() {
 
     dispatch(
       createMatch({
+        season_id: Number(form.season_id),
         teamA_name: form.teamA_name,
         teamB_name: form.teamB_name,
         match_start: form.match_start,
@@ -75,6 +93,7 @@ function MatchesPage() {
     );
 
     setForm({
+      season_id: "",
       teamA_name: "",
       teamB_name: "",
       match_start: "",
@@ -123,9 +142,9 @@ function MatchesPage() {
 
   return (
     <div className="admin-match-page">
-      <h2>Quản lý trận</h2>
       <MatchForm
         form={form}
+        seasons={seasons}
         teamOptions={TEAM_OPTIONS}
         onFormChange={handleFormChange}
         onCreate={handleCreate}

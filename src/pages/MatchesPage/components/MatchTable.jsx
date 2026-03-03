@@ -5,7 +5,6 @@ import { formatDate } from "../../../utils/formatDate";
 
 function MatchTable({
   matches,
-  loading,
   isFinishedMatch,
   onScoreChange,
   onUpdateScore,
@@ -14,7 +13,6 @@ function MatchTable({
   return (
     <>
       <h3>Danh sách trận đã tạo</h3>
-      {loading && <p>Đang tải...</p>}
 
       <Table>
         <thead>

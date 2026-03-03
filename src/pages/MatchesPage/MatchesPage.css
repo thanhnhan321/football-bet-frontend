@@ -18,6 +18,13 @@
   margin-bottom: 10px;
 }
 
+.match-form-inline {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 12px 16px;
+  align-items: end;
+}
+
 .team-picker {
   display: flex;
   flex-direction: column;
@@ -32,6 +39,19 @@
 
 .team-picker .ui-input,
 .team-picker .ui-select {
+  margin-bottom: 10px;
+  width: 100%;
+}
+
+.match-description-field {
+  grid-column: span 2;
+}
+
+.match-create-action {
+  justify-content: flex-end;
+}
+
+.match-create-action .ui-button {
   margin-bottom: 10px;
 }
 
@@ -54,6 +74,14 @@
 }
 
 @media (max-width: 768px) {
+  .match-form-inline {
+    grid-template-columns: 1fr;
+  }
+
+  .match-description-field {
+    grid-column: auto;
+  }
+
   .team-picker .ui-input,
   .team-picker .ui-select {
     width: 100%;
