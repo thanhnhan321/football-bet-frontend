@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { clearAuthError, login } from "../../features/auth/authSlice";
+import { isTokenExpired } from "../../features/auth/tokenUtils";
 import loginLogo from "../../assets/logos/login-logo.svg";
 import "./LoginPage.css";
 
@@ -10,10 +11,14 @@ function LoginPage() {
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
   const { token, role, loading, error } = useSelector((state) => state.auth);
+  const tokenExpired = token ? isTokenExpired(token) : false;
+  const params = new URLSearchParams(location.search);
+  const sessionExpired = params.get("reason") === "session_expired";
 
   useEffect(() => {
-    if (!token) {
+    if (!token || tokenExpired) {
       return;
     }
 
@@ -23,7 +28,7 @@ function LoginPage() {
     }
 
     navigate("/home/member", { replace: true });
-  }, [navigate, role, token]);
+  }, [navigate, role, token, tokenExpired]);
 
   useEffect(() => {
     return () => {
@@ -67,6 +72,10 @@ function LoginPage() {
             onChange={(e) => setPassword(e.target.value)}
             required
           />
+
+          {sessionExpired ? (
+            <p className="login-error">Phien dang nhap da het han. Vui long dang nhap lai.</p>
+          ) : null}
 
           {error ? <p className="login-error">{error}</p> : null}
 
