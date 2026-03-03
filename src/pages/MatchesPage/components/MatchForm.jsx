@@ -68,15 +68,16 @@ function MatchForm({ form, seasons, teamOptions, onFormChange, onCreate }) {
         </div>
 
         <div className="team-picker match-description-field">
-          <label className="picker-label" htmlFor="matchDescription">
-            Mô tả trận (match_description)
+          <label className="picker-label" htmlFor="agivesb">
+            A chấp B (AgivesB)
           </label>
           <Input
-            id="matchDescription"
-            type="text"
-            value={form.match_description}
-            onChange={(e) => onFormChange("match_description", e.target.value)}
-            placeholder="Nhập mô tả trận"
+            id="agivesb"
+            type="number"
+            step={1}
+            value={form.AgivesB}
+            onChange={(e) => onFormChange("AgivesB", e.target.value)}
+            placeholder="Ví dụ: -1, 0, 1"
           />
         </div>
 

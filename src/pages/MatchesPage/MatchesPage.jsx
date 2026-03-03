@@ -30,7 +30,7 @@ function MatchesPage() {
     teamB_name: "",
     match_start: "",
     match_bet: "",
-    match_description: "",
+    AgivesB: "",
   });
   const [scoreInputs, setScoreInputs] = useState({});
 
@@ -62,7 +62,7 @@ function MatchesPage() {
       !form.teamB_name ||
       !form.match_start ||
       form.match_bet === "" ||
-      !form.match_description.trim()
+      form.AgivesB === ""
     ) {
       alert("Vui lòng nhập đầy đủ thông tin");
       return;
@@ -78,6 +78,11 @@ function MatchesPage() {
       return;
     }
 
+    if (!Number.isInteger(Number(form.AgivesB))) {
+      alert("A chấp B phải là số nguyên");
+      return;
+    }
+
     dispatch(
       createMatch({
         season_id: Number(form.season_id),
@@ -85,7 +90,7 @@ function MatchesPage() {
         teamB_name: form.teamB_name,
         match_start: form.match_start,
         match_bet: Number(form.match_bet),
-        match_description: form.match_description.trim(),
+        AgivesB: Number(form.AgivesB),
         team_home_id: form.teamA_name,
         team_away_id: form.teamB_name,
         match_time: form.match_start,
@@ -98,7 +103,7 @@ function MatchesPage() {
       teamB_name: "",
       match_start: "",
       match_bet: "",
-      match_description: "",
+      AgivesB: "",
     });
   };
 

@@ -22,13 +22,21 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 12px 16px;
-  align-items: end;
+  align-items: start;
 }
 
 .team-picker {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+}
+
+.team-select-inline {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  min-width: 0;
 }
 
 .picker-label {
@@ -43,24 +51,37 @@
   width: 100%;
 }
 
+.team-picker--team .ui-select {
+  width: auto;
+  min-width: 0;
+  flex: 1 1 auto;
+  margin-bottom: 0;
+}
+
 .match-description-field {
   grid-column: span 2;
 }
 
 .match-create-action {
   justify-content: flex-end;
+  padding-top: 24px;
 }
 
 .match-create-action .ui-button {
-  margin-bottom: 10px;
+  margin-bottom: 0;
 }
 
 .team-flag {
-  width: 56px;
-  height: 38px;
+  width: 48px;
+  height: 32px;
+  flex: 0 0 48px;
   object-fit: cover;
   border: 1px solid #ddd;
   border-radius: 4px;
+}
+
+.team-flag--placeholder {
+  visibility: hidden;
 }
 
 .score-input {
@@ -85,6 +106,10 @@
   .team-picker .ui-input,
   .team-picker .ui-select {
     width: 100%;
+  }
+
+  .team-picker--team .ui-select {
+    min-width: 0;
   }
 
   .team-picker {
