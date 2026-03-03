@@ -26,6 +26,8 @@ function MatchesPage() {
     teamA_name: "",
     teamB_name: "",
     match_start: "",
+    match_bet: "",
+    match_description: "",
   });
   const [scoreInputs, setScoreInputs] = useState({});
 
@@ -38,7 +40,13 @@ function MatchesPage() {
   };
 
   const handleCreate = () => {
-    if (!form.teamA_name || !form.teamB_name || !form.match_start) {
+    if (
+      !form.teamA_name ||
+      !form.teamB_name ||
+      !form.match_start ||
+      form.match_bet === "" ||
+      !form.match_description.trim()
+    ) {
       alert("Vui lòng nhập đầy đủ thông tin");
       return;
     }
@@ -48,11 +56,18 @@ function MatchesPage() {
       return;
     }
 
+    if (Number(form.match_bet) < 0) {
+      alert("Mức cược phải lớn hơn hoặc bằng 0");
+      return;
+    }
+
     dispatch(
       createMatch({
         teamA_name: form.teamA_name,
         teamB_name: form.teamB_name,
         match_start: form.match_start,
+        match_bet: Number(form.match_bet),
+        match_description: form.match_description.trim(),
         team_home_id: form.teamA_name,
         team_away_id: form.teamB_name,
         match_time: form.match_start,
@@ -63,6 +78,8 @@ function MatchesPage() {
       teamA_name: "",
       teamB_name: "",
       match_start: "",
+      match_bet: "",
+      match_description: "",
     });
   };
 

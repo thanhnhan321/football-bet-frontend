@@ -37,6 +37,32 @@ function MatchForm({ form, teamOptions, onFormChange, onCreate }) {
         />
       </div>
 
+      <div className="team-picker">
+        <label className="picker-label" htmlFor="matchBet">
+          Mức cược (match_bet)
+        </label>
+        <Input
+          id="matchBet"
+          type="number"
+          min={0}
+          value={form.match_bet}
+          onChange={(e) => onFormChange("match_bet", e.target.value)}
+        />
+      </div>
+
+      <div className="team-picker">
+        <label className="picker-label" htmlFor="matchDescription">
+          Mô tả trận (match_description)
+        </label>
+        <Input
+          id="matchDescription"
+          type="text"
+          value={form.match_description}
+          onChange={(e) => onFormChange("match_description", e.target.value)}
+          placeholder="Nhập mô tả trận"
+        />
+      </div>
+
       <Button onClick={onCreate}>Tạo trận</Button>
     </div>
   );
