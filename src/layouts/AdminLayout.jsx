@@ -8,6 +8,9 @@ function AdminLayout() {
         <h3>Admin</h3>
         <ul>
           <li>
+            <NavLink to="users">Quản lý người dùng</NavLink>
+          </li>
+          <li>
             <NavLink to="seasons">Quản lý mùa giải</NavLink>
           </li>
           <li>

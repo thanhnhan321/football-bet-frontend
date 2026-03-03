@@ -62,3 +62,18 @@
   color: #b91c1c;
   margin: 4px 0;
 }
+
+.login-success {
+  color: #166534;
+  margin: 4px 0;
+}
+
+.first-login-form {
+  margin-top: 16px;
+  padding-top: 12px;
+  border-top: 1px solid #e2e8f0;
+}
+
+.first-login-form h3 {
+  margin: 0 0 8px;
+}

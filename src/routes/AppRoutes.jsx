@@ -4,13 +4,14 @@ import LoginPage from "../pages/LoginPage/LoginPage";
 import HomePage from "../pages/HomePage/HomePage";
 import MatchesPage from "../pages/MatchesPage/MatchesPage";
 import SeasonsPage from "../pages/SeasonsPage/SeasonsPage";
+import UsersPage from "../pages/UsersPage/UsersPage";
 import AdminLayout from "../layouts/AdminLayout";
 import ProtectedRoute from "./ProtectedRoute";
 
 function HomeRedirect() {
   const role = useSelector((state) => state.auth.role);
   if (role === "admin") {
-    return <Navigate to="/home/admin/matches" replace />;
+    return <Navigate to="/home/admin/users" replace />;
   }
   return <Navigate to="/home/member" replace />;
 }
@@ -38,9 +39,10 @@ function AppRoutes() {
           </ProtectedRoute>
         }
       >
-        <Route index element={<Navigate to="matches" replace />} />
+        <Route index element={<Navigate to="users" replace />} />
         <Route path="matches" element={<MatchesPage />} />
         <Route path="seasons" element={<SeasonsPage />} />
+        <Route path="users" element={<UsersPage />} />
       </Route>
 
       <Route
