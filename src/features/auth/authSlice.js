@@ -4,6 +4,7 @@ import { loginRequest } from "./authApi";
 const TOKEN_KEY = "access_token";
 const ROLE_KEY = "role_name";
 const USERNAME_KEY = "username";
+const NAME_KEY = "name";
 
 // initial state of auth reducer when created Redux store
 // when reset browser, Redux store reset but local store was not
@@ -11,6 +12,7 @@ const initialState = {
   token: localStorage.getItem(TOKEN_KEY),
   role: localStorage.getItem(ROLE_KEY),
   username: localStorage.getItem(USERNAME_KEY),
+  name: localStorage.getItem(NAME_KEY),
   loading: false,
   error: null,
 };
@@ -31,6 +33,7 @@ export const login = createAsyncThunk(
         token: data.access_token,
         role: data.role_name || "member",
         username: data.username || username,
+        name: data.name || data.username || username,
       };
       // error handling
     } catch (error) {
@@ -61,10 +64,12 @@ const authSlice = createSlice({
       state.token = null;
       state.role = null;
       state.username = null;
+      state.name = null;
       state.error = null;
       localStorage.removeItem(TOKEN_KEY);
       localStorage.removeItem(ROLE_KEY);
       localStorage.removeItem(USERNAME_KEY);
+      localStorage.removeItem(NAME_KEY);
     },
   },
   // handling external actions
@@ -81,9 +86,11 @@ const authSlice = createSlice({
         state.token = action.payload.token;
         state.role = action.payload.role;
         state.username = action.payload.username;
+        state.name = action.payload.name;
         localStorage.setItem(TOKEN_KEY, action.payload.token);
         localStorage.setItem(ROLE_KEY, action.payload.role);
         localStorage.setItem(USERNAME_KEY, action.payload.username);
+        localStorage.setItem(NAME_KEY, action.payload.name);
       })
       // when failed
       .addCase(login.rejected, (state, action) => {
