@@ -1,12 +1,12 @@
 import axiosClient from "../../services/axiosClient";
 
 export const fetchMatchesRequest = async () => {
-  const res = await axiosClient.get("/api/matches");
+  const res = await axiosClient.get("/match/match-list");
   return res.data;
 };
 
 export const createMatchRequest = async (data) => {
-  await axiosClient.post("/api/matches", data);
+  await axiosClient.post("/match/create-match", data);
 };
 
 export const updateScoreRequest = async ({ id, home_score, away_score }) => {

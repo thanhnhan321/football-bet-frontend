@@ -3,7 +3,17 @@ import Input from "../../../components/Input";
 import Select from "../../../components/Select";
 import TeamSelect from "./TeamSelect";
 
-function MatchForm({ form, seasons, teamOptions, onFormChange, onCreate }) {
+function MatchForm({
+  form,
+  matchBetDisplay,
+  agivesBError,
+  seasons,
+  teamAOptions,
+  teamBOptions,
+  matchStartMin,
+  onFormChange,
+  onCreate,
+}) {
   return (
     <div className="section">
       <div className="match-form-inline">
@@ -30,7 +40,7 @@ function MatchForm({ form, seasons, teamOptions, onFormChange, onCreate }) {
           label="Team A"
           value={form.teamA_name}
           onChange={(e) => onFormChange("teamA_name", e.target.value)}
-          options={teamOptions}
+          options={teamAOptions}
           placeholder="Chọn đội A"
         />
         <TeamSelect
@@ -38,7 +48,7 @@ function MatchForm({ form, seasons, teamOptions, onFormChange, onCreate }) {
           label="Team B"
           value={form.teamB_name}
           onChange={(e) => onFormChange("teamB_name", e.target.value)}
-          options={teamOptions}
+          options={teamBOptions}
           placeholder="Chọn đội B"
         />
 
@@ -50,6 +60,7 @@ function MatchForm({ form, seasons, teamOptions, onFormChange, onCreate }) {
             id="matchStart"
             type="datetime-local"
             value={form.match_start}
+            min={matchStartMin}
             onChange={(e) => onFormChange("match_start", e.target.value)}
           />
         </div>
@@ -60,10 +71,11 @@ function MatchForm({ form, seasons, teamOptions, onFormChange, onCreate }) {
           </label>
           <Input
             id="matchBet"
-            type="number"
-            min={0}
-            value={form.match_bet}
+            type="text"
+            inputMode="numeric"
+            value={matchBetDisplay}
             onChange={(e) => onFormChange("match_bet", e.target.value)}
+            placeholder="Ví dụ: 100000 hoặc 100.000"
           />
         </div>
 
@@ -73,12 +85,13 @@ function MatchForm({ form, seasons, teamOptions, onFormChange, onCreate }) {
           </label>
           <Input
             id="agivesb"
-            type="number"
-            step={1}
+            type="text"
+            inputMode="decimal"
             value={form.AgivesB}
             onChange={(e) => onFormChange("AgivesB", e.target.value)}
-            placeholder="Ví dụ: -1, 0, 1"
+            placeholder="Ví dụ: -1.5, -0.5, 0, 1, 1.5"
           />
+          {agivesBError ? <p className="field-error">{agivesBError}</p> : null}
         </div>
 
         <div className="team-picker match-create-action">

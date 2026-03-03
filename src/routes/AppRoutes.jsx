@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import LoginPage from "../pages/LoginPage/LoginPage";
 import HomePage from "../pages/HomePage/HomePage";
 import MatchesPage from "../pages/MatchesPage/MatchesPage";
+import SeasonsPage from "../pages/SeasonsPage/SeasonsPage";
 import AdminLayout from "../layouts/AdminLayout";
 import ProtectedRoute from "./ProtectedRoute";
 
@@ -39,6 +40,7 @@ function AppRoutes() {
       >
         <Route index element={<Navigate to="matches" replace />} />
         <Route path="matches" element={<MatchesPage />} />
+        <Route path="seasons" element={<SeasonsPage />} />
       </Route>
 
       <Route
