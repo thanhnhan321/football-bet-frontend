@@ -9,7 +9,14 @@ import {
   fetchUsersRequest,
   updateUserRequest,
 } from "../features/user/userApi";
-import { EMAIL_PATTERN } from "../pages/UsersPage/constants";
+import {
+  createEmptyCreateUserForm,
+  createEmptyEditUserForm,
+  getCreateUserInputError,
+  getUpdateUserInputError,
+  toCreateUserPayload,
+  toUpdateUserPayload,
+} from "../features/user/userFormLogic";
 
 export default function useUsersPageState() {
   const [activeMenu, setActiveMenu] = useState("create");
@@ -26,23 +33,12 @@ export default function useUsersPageState() {
     key: "id",
     direction: "asc",
   });
-  const [createForm, setCreateForm] = useState({
-    email: "",
-    name: "",
-    username: "",
-    department: "",
-  });
+  const [createForm, setCreateForm] = useState(createEmptyCreateUserForm);
   const [assignForm, setAssignForm] = useState({
     user_id: "",
     role_id: "",
   });
-  const [editForm, setEditForm] = useState({
-    id: "",
-    email: "",
-    name: "",
-    username: "",
-    department: "",
-  });
+  const [editForm, setEditForm] = useState(createEmptyEditUserForm);
   const [deleteUserId, setDeleteUserId] = useState("");
 
   const loadUsers = async () => {
@@ -107,27 +103,8 @@ export default function useUsersPageState() {
     setCreateForm((prev) => ({ ...prev, [field]: value }));
   };
 
-  const getCreateUserInputError = () => {
-    const email = createForm.email.trim();
-    const name = createForm.name.trim();
-    const username = createForm.username.trim();
-    const department = createForm.department.trim();
-
-    if (!email) return "Vui lòng nhập Email";
-    if (!EMAIL_PATTERN.test(email)) return "Email không hợp lệ";
-
-    if (!name) return "Vui lòng nhập Họ và tên";
-
-    if (!username) return "Vui lòng nhập Tên đăng nhập";
-    if (/\s/.test(username)) return "Tên đăng nhập không được chứa khoảng trắng";
-
-    if (!department) return "Vui lòng chọn Bộ phận";
-
-    return null;
-  };
-
   const onCreate = async () => {
-    const inputError = getCreateUserInputError();
+    const inputError = getCreateUserInputError(createForm);
     if (inputError) {
       alert(inputError);
       return;
@@ -135,19 +112,9 @@ export default function useUsersPageState() {
 
     try {
       setCreating(true);
-      await createUserRequest({
-        email: createForm.email.trim(),
-        name: createForm.name.trim(),
-        username: createForm.username.trim(),
-        department: createForm.department.trim(),
-      });
+      await createUserRequest(toCreateUserPayload(createForm));
 
-      setCreateForm({
-        email: "",
-        name: "",
-        username: "",
-        department: "",
-      });
+      setCreateForm(createEmptyCreateUserForm());
       await loadUsers();
       alert("Tạo người dùng thành công");
     } catch (error) {
@@ -194,13 +161,7 @@ export default function useUsersPageState() {
   const onSelectUserForEdit = (userId) => {
     setEditForm((prev) => ({ ...prev, id: userId }));
     if (!userId) {
-      setEditForm({
-        id: "",
-        email: "",
-        name: "",
-        username: "",
-        department: "",
-      });
+      setEditForm(createEmptyEditUserForm());
       return;
     }
 
@@ -222,29 +183,8 @@ export default function useUsersPageState() {
     setEditForm((prev) => ({ ...prev, [field]: value }));
   };
 
-  const getUpdateUserInputError = () => {
-    if (!editForm.id) return "Vui lòng chọn người dùng cần sửa";
-
-    const email = editForm.email.trim();
-    const name = editForm.name.trim();
-    const username = editForm.username.trim();
-    const department = editForm.department.trim();
-
-    if (!email) return "Vui lòng nhập Email";
-    if (!EMAIL_PATTERN.test(email)) return "Email không hợp lệ";
-
-    if (!name) return "Vui lòng nhập Họ và tên";
-
-    if (!username) return "Vui lòng nhập Tên đăng nhập";
-    if (/\s/.test(username)) return "Tên đăng nhập không được chứa khoảng trắng";
-
-    if (!department) return "Vui lòng chọn Bộ phận";
-
-    return null;
-  };
-
   const onUpdateUser = async () => {
-    const inputError = getUpdateUserInputError();
+    const inputError = getUpdateUserInputError(editForm);
     if (inputError) {
       alert(inputError);
       return;
@@ -252,12 +192,7 @@ export default function useUsersPageState() {
 
     try {
       setUpdatingUser(true);
-      await updateUserRequest(Number(editForm.id), {
-        email: editForm.email.trim(),
-        name: editForm.name.trim(),
-        username: editForm.username.trim(),
-        department: editForm.department.trim(),
-      });
+      await updateUserRequest(Number(editForm.id), toUpdateUserPayload(editForm));
 
       await loadUsers();
       onSelectUserForEdit(editForm.id);
