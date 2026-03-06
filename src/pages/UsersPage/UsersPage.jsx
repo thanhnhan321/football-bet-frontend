@@ -1,11 +1,11 @@
-import AssignRolePanel from "./components/AssignRolePanel";
-import CreateUserPanel from "./components/CreateUserPanel";
 import DeleteUserPanel from "./components/DeleteUserPanel";
 import EditUserPanel from "./components/EditUserPanel";
 import UsersTableSection from "./components/UsersTableSection";
+import AssignRolePanel from "../../components/blocks/AssignRolePanel";
+import EntityPanel from "../../components/blocks/EntityPanel";
 import MenuTabs from "../../components/blocks/MenuTabs";
 import useUsersPageState from "../../hooks/useUsersPageState";
-import { USER_MENU_ITEMS } from "./constants";
+import { USER_CREATE_FIELDS, USER_MENU_ITEMS } from "./constants";
 import "./UsersPage.css";
 
 function UsersPage() {
@@ -39,6 +39,7 @@ function UsersPage() {
     onSort,
     getSortIcon,
   } = useUsersPageState();
+  const createUserFields = USER_CREATE_FIELDS(departments);
 
   return (
     <div className="admin-user-page">
@@ -49,13 +50,15 @@ function UsersPage() {
       />
 
       {activeMenu === "create" ? (
-        <CreateUserPanel
-          createForm={createForm}
-          departments={departments}
-          loading={loading}
-          creating={creating}
-          onCreateFormChange={onCreateFormChange}
-          onCreate={onCreate}
+        <EntityPanel
+          title="Tạo người dùng"
+          note="Mật khẩu ban đầu được đặt bằng username. Người dùng phải đổi mật khẩu ở lần đăng nhập đầu tiên."
+          fields={createUserFields}
+          form={createForm}
+          onFormChange={onCreateFormChange}
+          onSubmit={onCreate}
+          submitting={loading || creating}
+          submitLabel="Tạo người dùng"
         />
       ) : null}
 

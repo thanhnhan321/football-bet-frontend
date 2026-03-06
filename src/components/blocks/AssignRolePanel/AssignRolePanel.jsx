@@ -1,5 +1,6 @@
-import Button from "../../../components/ui/Button";
-import Select from "../../../components/ui/Select";
+import Button from "../../ui/Button";
+import Select from "../../ui/Select";
+import "./AssignRolePanel.css";
 
 function AssignRolePanel({
   assignForm,
@@ -11,11 +12,11 @@ function AssignRolePanel({
   onAssignRole,
 }) {
   return (
-    <div className="user-function-panel">
+    <div className="assign-role-panel">
       <h3>Phân quyền người dùng</h3>
-      <div className="user-form-inline">
-        <div className="user-field">
-          <label className="user-label" htmlFor="assign-user-id">
+      <div className="assign-role-form">
+        <div className="assign-role-field">
+          <label className="assign-role-label" htmlFor="assign-user-id">
             Người dùng
           </label>
           <Select
@@ -32,8 +33,8 @@ function AssignRolePanel({
           </Select>
         </div>
 
-        <div className="user-field">
-          <label className="user-label" htmlFor="assign-role-id">
+        <div className="assign-role-field">
+          <label className="assign-role-label" htmlFor="assign-role-id">
             Vai trò
           </label>
           <Select
@@ -50,14 +51,14 @@ function AssignRolePanel({
           </Select>
         </div>
 
-        <div className="user-action">
+        <div className="assign-role-action">
           <Button onClick={onAssignRole} disabled={assigningRole}>
             Phân quyền
           </Button>
         </div>
       </div>
 
-      <div className="user-role-list">
+      <div className="assign-role-list">
         <p>Vai trò hiện tại:</p>
         {userRoles.length ? <p>{userRoles.join(", ")}</p> : <p>Người dùng chưa có vai trò.</p>}
       </div>

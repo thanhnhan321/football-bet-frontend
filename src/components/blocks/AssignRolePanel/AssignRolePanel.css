@@ -1,0 +1,48 @@
+.assign-role-panel {
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 16px;
+  background: #ffffff;
+  margin-bottom: 20px;
+}
+
+.assign-role-form {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 12px 16px;
+  align-items: start;
+  margin-bottom: 20px;
+}
+
+.assign-role-field {
+  display: flex;
+  flex-direction: column;
+}
+
+.assign-role-label {
+  font-size: 14px;
+  margin-bottom: 6px;
+  color: #333;
+}
+
+.assign-role-field .ui-select {
+  width: 100%;
+}
+
+.assign-role-action {
+  padding-top: 24px;
+}
+
+.assign-role-list p {
+  margin: 8px 0 0;
+}
+
+@media (max-width: 768px) {
+  .assign-role-form {
+    grid-template-columns: 1fr;
+  }
+
+  .assign-role-action {
+    padding-top: 0;
+  }
+}
