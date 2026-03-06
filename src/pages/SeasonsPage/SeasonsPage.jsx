@@ -1,12 +1,18 @@
 import { useEffect, useState } from "react";
-import Button from "../../components/Button";
-import Input from "../../components/Input";
-import Table from "../../components/Table";
-import { createSeasonRequest, fetchSeasonsRequest } from "../../features/season/seasonApi";
+import Button from "../../components/ui/Button";
+import Input from "../../components/ui/Input";
+import Table from "../../components/ui/Table";
+import {
+  createSeasonRequest,
+  fetchSeasonsRequest,
+} from "../../features/season/seasonApi";
 import { formatDate } from "../../utils/formatDate";
 import "./SeasonsPage.css";
+import MenuTabs from "../../components/blocks/MenuTabs";
+import { SEASON_MENU_ITEMS } from "./constants";
 
 function SeasonsPage() {
+  const [activeMenu, setActiveMenu] = useState("create");
   const [seasons, setSeasons] = useState([]);
   const [loading, setLoading] = useState(false);
   const [form, setForm] = useState({
@@ -78,6 +84,11 @@ function SeasonsPage() {
 
   return (
     <div className="admin-season-page">
+      <MenuTabs
+        activeMenu={activeMenu}
+        onChange={setActiveMenu}
+        MENU_ITEMS={SEASON_MENU_ITEMS}
+      />
       <div className="season-form-inline">
         <div className="season-field">
           <label className="season-label" htmlFor="seasonName">
@@ -130,7 +141,6 @@ function SeasonsPage() {
             <th>Tên mùa giải</th>
             <th>Bắt đầu</th>
             <th>Kết thúc</th>
-            <th>Trạng thái</th>
           </tr>
         </thead>
         <tbody>
@@ -139,7 +149,6 @@ function SeasonsPage() {
               <td>{season.season_name}</td>
               <td>{formatDate(season.season_start)}</td>
               <td>{formatDate(season.season_end)}</td>
-              <td>{season.status === 1 ? "Active" : "Đã xóa"}</td>
             </tr>
           ))}
         </tbody>

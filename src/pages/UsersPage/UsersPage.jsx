@@ -2,9 +2,10 @@ import AssignRolePanel from "./components/AssignRolePanel";
 import CreateUserPanel from "./components/CreateUserPanel";
 import DeleteUserPanel from "./components/DeleteUserPanel";
 import EditUserPanel from "./components/EditUserPanel";
-import UserMenuTabs from "./components/UserMenuTabs";
 import UsersTableSection from "./components/UsersTableSection";
-import useUsersPageState from "./hooks/useUsersPageState";
+import MenuTabs from "../../components/blocks/MenuTabs";
+import useUsersPageState from "../../hooks/useUsersPageState";
+import { USER_MENU_ITEMS } from "./constants";
 import "./UsersPage.css";
 
 function UsersPage() {
@@ -41,7 +42,11 @@ function UsersPage() {
 
   return (
     <div className="admin-user-page">
-      <UserMenuTabs activeMenu={activeMenu} onChange={setActiveMenu} />
+      <MenuTabs
+        activeMenu={activeMenu}
+        onChange={setActiveMenu}
+        MENU_ITEMS={USER_MENU_ITEMS}
+      />
 
       {activeMenu === "create" ? (
         <CreateUserPanel

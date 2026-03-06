@@ -4,12 +4,13 @@ const decodeJwtPayload = (token) => {
   }
 
   try {
-    const payload = token.split(".")[1];
-    if (!payload) {
-      return null;
-    }
+    const parts = token.split(".");
+    if (parts.length !== 3) return null;
+    const payload = parts[1];
 
+    // Base64URL to Base64
     const base64 = payload.replace(/-/g, "+").replace(/_/g, "/");
+    // decode
     const normalized = atob(base64);
     return JSON.parse(normalized);
   } catch {

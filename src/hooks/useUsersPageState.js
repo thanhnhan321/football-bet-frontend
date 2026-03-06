@@ -8,8 +8,8 @@ import {
   fetchUserRolesRequest,
   fetchUsersRequest,
   updateUserRequest,
-} from "../../../features/user/userApi";
-import { EMAIL_PATTERN } from "../constants";
+} from "../features/user/userApi";
+import { EMAIL_PATTERN } from "../pages/UsersPage/constants";
 
 export default function useUsersPageState() {
   const [activeMenu, setActiveMenu] = useState("create");

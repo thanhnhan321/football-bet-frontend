@@ -3,29 +3,6 @@
   font-family: Arial, sans-serif;
 }
 
-.user-menu {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-bottom: 16px;
-}
-
-.user-menu-item {
-  border: 1px solid #cbd5e1;
-  background: #f8fafc;
-  color: #0f172a;
-  border-radius: 6px;
-  padding: 8px 12px;
-  cursor: pointer;
-  font-weight: 600;
-}
-
-.user-menu-item.active {
-  background: #0f172a;
-  color: #ffffff;
-  border-color: #0f172a;
-}
-
 .user-function-panel {
   border: 1px solid #e2e8f0;
   border-radius: 8px;

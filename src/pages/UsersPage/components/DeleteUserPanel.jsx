@@ -1,5 +1,5 @@
-import Button from "../../../components/Button";
-import Select from "../../../components/Select";
+import Button from "../../../components/ui/Button";
+import Select from "../../../components/ui/Select";
 
 function DeleteUserPanel({
   deleteUserId,

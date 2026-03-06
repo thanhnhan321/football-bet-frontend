@@ -1,4 +1,4 @@
-import Select from "../../../components/Select";
+import Select from "../../../components/ui/Select";
 import { findTeamByName } from "../../../utils/teams";
 
 function TeamSelect({ id, label, value, onChange, options, placeholder }) {
