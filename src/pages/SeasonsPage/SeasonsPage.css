@@ -1,0 +1,26 @@
+.seasons-list {
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 16px;
+  background: #ffffff;
+  margin-top: 20px;
+}
+
+.seasons-list h3 {
+  margin: 20px 0 16px;
+  color: #334155;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.seasons-list .app-table th,
+.seasons-list .app-table td {
+  text-align: left;
+}
+
+@media (max-width: 768px) {
+  .seasons-list .app-table th,
+  .seasons-list .app-table td {
+    padding: 8px;
+  }
+}

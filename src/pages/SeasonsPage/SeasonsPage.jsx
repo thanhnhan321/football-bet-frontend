@@ -2,7 +2,9 @@ import EntityPanel from "../../components/blocks/EntityPanel";
 import { SEASON_CREATE_FIELDS, SEASON_MENU_ITEMS } from "./constants";
 import useSeasonsPageState from "../../hooks/useSeasonsPageState";
 import MenuTabs from "../../components/blocks/MenuTabs";
+import SeasonsTableSection from "./components/SeasonsTableSection";
 import "../UsersPage/UsersPage.css";
+import "./SeasonsPage.css";
 
 function SeasonsPage() {
   const {
@@ -10,6 +12,7 @@ function SeasonsPage() {
     setActiveMenu,
     loading,
     creating,
+    seasons,
     createForm,
     onCreateFormChange,
     onCreate,
@@ -34,6 +37,8 @@ function SeasonsPage() {
           submitLabel="Tạo mùa giải"
         />
       ) : null}
+
+      <SeasonsTableSection seasons={seasons} loading={loading} />
     </div>
   );
 }

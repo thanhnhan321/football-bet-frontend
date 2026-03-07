@@ -1,15 +1,34 @@
-import { useState } from "react";
-import { createSeasonRequest } from "../features/season/seasonApi";
+import { useState, useEffect } from "react";
+import {
+  createSeasonRequest,
+  fetchSeasonsRequest,
+} from "../features/season/seasonApi";
 
 export default function useSeasonsPageState() {
   const [activeMenu, setActiveMenu] = useState("create");
-  const loading = false;
+  const [loading, setLoading] = useState(false);
   const [creating, setCreating] = useState(false);
+  const [seasons, setSeasons] = useState([]);
   const [createForm, setCreateForm] = useState({
     season_name: "",
     season_start: "",
     season_end: "",
   });
+
+  useEffect(() => {
+    const fetchSeasons = async () => {
+      try {
+        setLoading(true);
+        const data = await fetchSeasonsRequest();
+        setSeasons(data);
+      } catch (error) {
+        console.error("Failed to fetch seasons:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchSeasons();
+  }, []);
 
   const onCreateFormChange = (field, value) => {
     setCreateForm((prev) => ({ ...prev, [field]: value }));
@@ -42,6 +61,9 @@ export default function useSeasonsPageState() {
         season_end: "",
       });
       alert("Tạo mùa giải thành công");
+      // Refresh seasons list
+      const data = await fetchSeasonsRequest();
+      setSeasons(data);
     } catch (error) {
       const message =
         error?.response?.data?.detail ||
@@ -58,6 +80,7 @@ export default function useSeasonsPageState() {
     setActiveMenu,
     loading,
     creating,
+    seasons,
     createForm,
     onCreateFormChange,
     onCreate,
