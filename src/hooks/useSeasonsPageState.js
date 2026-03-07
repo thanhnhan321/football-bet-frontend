@@ -47,6 +47,10 @@ export default function useSeasonsPageState() {
       alert("Vui lòng chọn ngày kết thúc");
       return;
     }
+    if (new Date(createForm.season_end) <= new Date(createForm.season_start)) {
+      alert("Ngày kết thúc phải lớn hơn ngày bắt đầu");
+      return;
+    }
 
     try {
       setCreating(true);
