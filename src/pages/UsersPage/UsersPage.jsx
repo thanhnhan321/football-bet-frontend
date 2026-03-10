@@ -1,9 +1,9 @@
-import DeleteUserPanel from "./components/DeleteUserPanel";
-import EditUserPanel from "./components/EditUserPanel";
-import UsersTableSection from "./components/UsersTableSection";
-import AssignRolePanel from "../../components/blocks/AssignRolePanel";
-import EntityPanel from "../../components/blocks/EntityPanel";
-import MenuTabs from "../../components/blocks/MenuTabs";
+import DeleteUserPanel from "./components/DeleteUserPanel/DeleteUserPanel";
+import EditUserPanel from "./components/EditUserPanel/EditUserPanel";
+import UsersTableSection from "./components/UsersTableSection/UsersTableSection";
+import AssignRolePanel from "./components/AssignRolePanel/AssignRolePanel";
+import CreateUserPanel from "./components/CreateUserPanel/CreateUserPanel";
+import MenuTabs from "./components/MenuTabs/MenuTabs";
 import useUsersPageState from "../../hooks/useUsersPageState";
 import { USER_CREATE_FIELDS, USER_MENU_ITEMS } from "./constants";
 import "./UsersPage.css";
@@ -50,7 +50,7 @@ function UsersPage() {
       />
 
       {activeMenu === "create" ? (
-        <EntityPanel
+        <CreateUserPanel
           title="Tạo người dùng"
           note="Mật khẩu ban đầu được đặt bằng username. Người dùng phải đổi mật khẩu ở lần đăng nhập đầu tiên."
           fields={createUserFields}

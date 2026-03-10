@@ -1,5 +1,5 @@
-import Button from "../../ui/Button";
-import Select from "../../ui/Select";
+import Button from "../../../../components/Button";
+import Select from "../../../../components/Select";
 import "./AssignRolePanel.css";
 
 function AssignRolePanel({
@@ -67,3 +67,4 @@ function AssignRolePanel({
 }
 
 export default AssignRolePanel;
+

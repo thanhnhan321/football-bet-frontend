@@ -1,8 +1,8 @@
-import Button from "../../ui/Button";
-import Input from "../../ui/Input";
-import Select from "../../ui/Select";
+import Button from "../../../../components/Button";
+import Input from "../../../../components/Input";
+import Select from "../../../../components/Select";
 
-function EntityPanel({
+function CreateUserPanel({
   title,
   note,
   fields,
@@ -59,4 +59,5 @@ function EntityPanel({
   );
 }
 
-export default EntityPanel;
+export default CreateUserPanel;
+

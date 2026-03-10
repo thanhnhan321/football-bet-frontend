@@ -1,4 +1,4 @@
-import Table from "../../../components/ui/Table/Table";
+import Table from "../../../../components/Table";
 
 function SeasonsTableSection({ seasons, loading }) {
   return (
@@ -33,3 +33,4 @@ function SeasonsTableSection({ seasons, loading }) {
 }
 
 export default SeasonsTableSection;
+

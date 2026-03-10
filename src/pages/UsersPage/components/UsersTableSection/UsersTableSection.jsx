@@ -1,6 +1,6 @@
-import Table from "../../../components/ui/Table";
-import { formatDate } from "../../../utils/formatDate";
-import { USER_TABLE_COLUMNS } from "../constants";
+import Table from "../../../../components/Table";
+import { formatDate } from "../../../../utils/formatDate";
+import { USER_TABLE_COLUMNS } from "../../constants";
 
 function UsersTableSection({ users, sortConfig, onSort, getSortIcon }) {
   return (
@@ -17,7 +17,9 @@ function UsersTableSection({ users, sortConfig, onSort, getSortIcon }) {
                   onClick={() => onSort(column.key)}
                 >
                   <span>{column.label}</span>
-                  <span className="user-sort-icon">{getSortIcon(column.key)}</span>
+                  <span className="user-sort-icon">
+                    {getSortIcon(column.key)}
+                  </span>
                 </button>
               </th>
             ))}
@@ -31,7 +33,11 @@ function UsersTableSection({ users, sortConfig, onSort, getSortIcon }) {
               <td>{user.name}</td>
               <td>{user.username}</td>
               <td>{user.department || "-"}</td>
-              <td>{Array.isArray(user.roles) && user.roles.length ? user.roles.join(", ") : "-"}</td>
+              <td>
+                {Array.isArray(user.roles) && user.roles.length
+                  ? user.roles.join(", ")
+                  : "-"}
+              </td>
               <td>{formatDate(user.initiated_date)}</td>
             </tr>
           ))}

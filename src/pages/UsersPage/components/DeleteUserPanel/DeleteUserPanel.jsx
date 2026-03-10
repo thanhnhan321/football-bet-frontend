@@ -1,5 +1,5 @@
-import Button from "../../../components/ui/Button";
-import Select from "../../../components/ui/Select";
+import Button from "../../../../components/Button";
+import Select from "../../../../components/Select";
 
 function DeleteUserPanel({
   deleteUserId,
@@ -31,7 +31,11 @@ function DeleteUserPanel({
         </div>
 
         <div className="user-action">
-          <Button variant="danger" onClick={onDeleteUser} disabled={deletingUser}>
+          <Button
+            variant="danger"
+            onClick={onDeleteUser}
+            disabled={deletingUser}
+          >
             Xóa người dùng
           </Button>
         </div>
