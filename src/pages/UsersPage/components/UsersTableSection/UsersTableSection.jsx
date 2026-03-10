@@ -1,6 +1,7 @@
 import Table from "../../../../components/Table";
 import { formatDate } from "../../../../utils/formatDate";
 import { USER_TABLE_COLUMNS } from "../../constants";
+import "./UsersTableSection.css";
 
 function UsersTableSection({ users, sortConfig, onSort, getSortIcon }) {
   return (

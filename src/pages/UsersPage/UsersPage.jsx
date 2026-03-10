@@ -5,7 +5,7 @@ import AssignRolePanel from "./components/AssignRolePanel/AssignRolePanel";
 import CreateUserPanel from "./components/CreateUserPanel/CreateUserPanel";
 import MenuTabs from "./components/MenuTabs/MenuTabs";
 import useUsersPageState from "../../hooks/useUsersPageState";
-import { USER_CREATE_FIELDS, USER_MENU_ITEMS } from "./constants";
+import { USER_MENU_ITEMS } from "./constants";
 import "./UsersPage.css";
 
 function UsersPage() {
@@ -39,7 +39,6 @@ function UsersPage() {
     onSort,
     getSortIcon,
   } = useUsersPageState();
-  const createUserFields = USER_CREATE_FIELDS(departments);
 
   return (
     <div className="admin-user-page">
@@ -51,14 +50,11 @@ function UsersPage() {
 
       {activeMenu === "create" ? (
         <CreateUserPanel
-          title="Tạo người dùng"
-          note="Mật khẩu ban đầu được đặt bằng username. Người dùng phải đổi mật khẩu ở lần đăng nhập đầu tiên."
-          fields={createUserFields}
-          form={createForm}
-          onFormChange={onCreateFormChange}
-          onSubmit={onCreate}
+          createForm={createForm}
+          departments={departments}
+          onCreateFormChange={onCreateFormChange}
+          onCreate={onCreate}
           submitting={loading || creating}
-          submitLabel="Tạo người dùng"
         />
       ) : null}
 

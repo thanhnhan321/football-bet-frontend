@@ -1,5 +1,6 @@
 import Button from "../../../../components/Button";
 import Select from "../../../../components/Select";
+import "./DeleteUserPanel.css";
 
 function DeleteUserPanel({
   deleteUserId,

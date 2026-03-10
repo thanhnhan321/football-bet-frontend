@@ -1,8 +1,9 @@
 import Table from "../../../../components/Table";
+import "./SeasonsTableSection.css";
 
 function SeasonsTableSection({ seasons, loading }) {
   return (
-    <>
+    <div className="seasons-list">
       <h3>Danh sách mùa giải</h3>
       {loading ? (
         <p>Đang tải...</p>
@@ -28,7 +29,7 @@ function SeasonsTableSection({ seasons, loading }) {
           </tbody>
         </Table>
       )}
-    </>
+    </div>
   );
 }
 

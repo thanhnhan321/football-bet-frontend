@@ -1,0 +1,23 @@
+.user-sort-btn {
+  width: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  border: none;
+  background: transparent;
+  color: #0f172a;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0;
+}
+
+.user-sort-btn.active {
+  color: #0b5ed7;
+}
+
+.user-sort-icon {
+  font-size: 11px;
+  line-height: 1;
+}

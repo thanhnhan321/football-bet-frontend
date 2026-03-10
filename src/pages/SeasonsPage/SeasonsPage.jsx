@@ -2,7 +2,6 @@ import { SEASON_MENU_ITEMS } from "./constants";
 import useSeasonsPageState from "../../hooks/useSeasonsPageState";
 import MenuTabs from "./components/MenuTabs/MenuTabs";
 import SeasonsTableSection from "./components/SeasonsTableSection/SeasonsTableSection";
-import "./SeasonsPage.css";
 
 function SeasonsPage() {
   const { activeMenu, setActiveMenu, loading, seasons } = useSeasonsPageState();
