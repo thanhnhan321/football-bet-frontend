@@ -4,41 +4,44 @@ import UsersTableSection from "./components/UsersTableSection/UsersTableSection"
 import AssignRolePanel from "./components/AssignRolePanel/AssignRolePanel";
 import CreateUserPanel from "./components/CreateUserPanel/CreateUserPanel";
 import MenuTabs from "./components/MenuTabs/MenuTabs";
-import useUsersPageState from "../../hooks/useUsersPageState";
+import { useState } from "react";
+import useUserAssignRole from "../../hooks/users/useUserAssignRole";
+import useUserCreate from "../../hooks/users/useUserCreate";
+import useUserDelete from "../../hooks/users/useUserDelete";
+import useUserEdit from "../../hooks/users/useUserEdit";
+import useUsersData from "../../hooks/users/useUsersData";
+import useUsersSort from "../../hooks/users/useUsersSort";
 import { USER_MENU_ITEMS } from "./constants";
 import "./UsersPage.css";
 
 function UsersPage() {
+  const [activeMenu, setActiveMenu] = useState("create");
+  const { users, roles, departments, loading, loadUsers } = useUsersData();
+  const { sortConfig, sortedUsers, onSort, getSortIcon } = useUsersSort(users);
+  const { createForm, creating, onCreateFormChange, onCreate } = useUserCreate({
+    loadUsers,
+  });
+  const { assignForm, setAssignForm, assigningRole, userRoles, onAssignRole } =
+    useUserAssignRole();
   const {
-    activeMenu,
-    setActiveMenu,
-    users,
-    roles,
-    departments,
-    userRoles,
-    loading,
-    creating,
-    assigningRole,
-    updatingUser,
-    deletingUser,
-    createForm,
-    assignForm,
-    setAssignForm,
     editForm,
-    deleteUserId,
-    setDeleteUserId,
-    sortConfig,
-    sortedUsers,
-    onCreateFormChange,
-    onCreate,
-    onAssignRole,
+    updatingUser,
     onSelectUserForEdit,
     onEditFormChange,
     onUpdateUser,
-    onDeleteUser,
-    onSort,
-    getSortIcon,
-  } = useUsersPageState();
+  } = useUserEdit({ users, loadUsers });
+  const { deleteUserId, setDeleteUserId, deletingUser, onDeleteUser } =
+    useUserDelete({
+      loadUsers,
+      onAfterDelete: (deletedId) => {
+        if (assignForm.user_id === deletedId) {
+          setAssignForm((prev) => ({ ...prev, user_id: "" }));
+        }
+        if (editForm.id === deletedId) {
+          onSelectUserForEdit("");
+        }
+      },
+    });
 
   return (
     <div className="admin-user-page">
